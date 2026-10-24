@@ -1,6 +1,9 @@
 /**
- * Pure helpers for resolving the DocuForge Windows installer from GitHub
+ * Pure helpers for resolving the DocuForge Windows download from GitHub
  * Releases data. No server or client imports — safe to unit-test in Node.
+ *
+ * Rule: the real asset is always what gets linked. A ZIP archive is labeled
+ * as a ZIP archive — never presented as an EXE installer.
  */
 
 export interface GitHubAsset {
@@ -19,6 +22,8 @@ export interface GitHubRelease {
   assets: GitHubAsset[];
 }
 
+export type InstallerKind = "exe-installer" | "zip-archive";
+
 export interface InstallerInfo {
   version: string;
   fileName: string;
@@ -26,28 +31,35 @@ export interface InstallerInfo {
   sizeBytes: number;
   publishedAt: string | null;
   githubDownloads: number;
+  kind: InstallerKind;
 }
 
-/** Pick the Windows .exe installer asset. Never returns a .zip as the installer. */
-export function pickWindowsInstallerAsset(assets: GitHubAsset[]): GitHubAsset | null {
-  const exes = (assets ?? []).filter((a) => a?.name?.toLowerCase().endsWith(".exe"));
-  if (exes.length === 0) return null;
-  const setup = exes.find((a) => /setup|install/i.test(a.name));
-  return setup ?? exes[0];
+/** Pick the download asset: prefer the .exe installer, else the first .zip archive. */
+export function pickWindowsInstallerAsset(assets: GitHubAsset[]): { asset: GitHubAsset; kind: InstallerKind } | null {
+  const list = assets ?? [];
+  const exes = list.filter((a) => a?.name?.toLowerCase().endsWith(".exe"));
+  if (exes.length > 0) {
+    const setup = exes.find((a) => /setup|install/i.test(a.name));
+    return { asset: setup ?? exes[0], kind: "exe-installer" };
+  }
+  const zip = list.find((a) => a?.name?.toLowerCase().endsWith(".zip"));
+  if (zip) return { asset: zip, kind: "zip-archive" };
+  return null;
 }
 
-/** Resolve the installer from a release, or null when there is none. */
+/** Resolve the download from a release, or null when there is none. */
 export function resolveInstallerFromRelease(release: GitHubRelease | null | undefined): InstallerInfo | null {
   if (!release || release.draft || release.prerelease) return null;
-  const asset = pickWindowsInstallerAsset(release.assets);
-  if (!asset) return null;
+  const picked = pickWindowsInstallerAsset(release.assets);
+  if (!picked) return null;
   return {
     version: release.tag_name.replace(/^v/i, ""),
-    fileName: asset.name,
-    downloadUrl: asset.browser_download_url,
-    sizeBytes: asset.size,
+    fileName: picked.asset.name,
+    downloadUrl: picked.asset.browser_download_url,
+    sizeBytes: picked.asset.size,
     publishedAt: release.published_at,
-    githubDownloads: asset.download_count ?? 0,
+    githubDownloads: picked.asset.download_count ?? 0,
+    kind: picked.kind,
   };
 }
 
