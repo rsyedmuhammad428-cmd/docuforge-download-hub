@@ -16,10 +16,10 @@ interface DownloadButtonProps {
 }
 
 /**
- * The one true download action. Resolves the latest Windows installer from
+ * The one true download action. Resolves the latest Windows download from
  * GitHub Releases at render time; while nothing is published (or GitHub is
  * unreachable) it links to the Releases page instead — never to a guessed
- * asset URL, and never labeling a ZIP as an EXE.
+ * asset URL. A ZIP archive is labeled as a ZIP archive, never as an EXE.
  */
 export function DownloadButton({ source, size = "md", className, showMeta = false }: DownloadButtonProps) {
   const { data, isLoading } = useQuery(releaseInfoQueryOptions);
@@ -27,17 +27,13 @@ export function DownloadButton({ source, size = "md", className, showMeta = fals
   const href = data?.downloadUrl ?? data?.releasesUrl ?? GITHUB_RELEASES_URL;
   const meta = isLoading
     ? "Checking the latest release…"
-    : data?.available
-      ? `${data.fileName} · v${data.version} · ${formatBytes(data.sizeBytes)}`
-      : "Latest installer on GitHub Releases";
+    : data?.available && data.fileName
+      ? `${data.fileName}${data.kind === "zip-archive" ? " (ZIP archive)" : ""} · v${data.version} · ${formatBytes(data.sizeBytes)}`
+      : "Latest download on GitHub Releases";
 
   return (
     <span className={cn("inline-flex flex-col items-start gap-1.5", className)}>
-      <Button
-        asChild
-        size={size}
-        className="group font-semibold"
-      >
+      <Button asChild size={size} className="group font-semibold">
         <a
           href={href}
           target="_blank"

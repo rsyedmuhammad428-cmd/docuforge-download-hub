@@ -4,6 +4,7 @@ import {
   resolveInstallerFromRelease,
   type GitHubRelease,
   type InstallerInfo,
+  type InstallerKind,
 } from "@/lib/installer";
 
 /**
@@ -11,7 +12,7 @@ import {
  * names and file sizes are never hardcoded in the UI, because the source of
  * truth is the repository's Releases page.
  */
-const GITHUB_REPO = "rsyedmuhammad428-cmd/DocuForge";
+const GITHUB_REPO = "rsyedmuhammad428-cmd/DocuForge.exe";
 export const GITHUB_RELEASES_URL = `https://github.com/${GITHUB_REPO}/releases`;
 export const GITHUB_REPO_URL = `https://github.com/${GITHUB_REPO}`;
 
@@ -22,8 +23,10 @@ export interface ReleaseInfo {
   downloadUrl: string | null;
   sizeBytes: number | null;
   publishedAt: string | null;
-  /** Verified GitHub download count for the installer asset (null when unknown). */
+  /** Verified GitHub download count for the release asset (null when unknown). */
   githubDownloads: number | null;
+  /** "exe-installer" or "zip-archive"; null when no release is available. */
+  kind: InstallerKind | null;
   /** Always-present fallback link to the GitHub Releases page. */
   releasesUrl: string;
 }
@@ -42,6 +45,7 @@ const fallbackInfo: ReleaseInfo = {
   sizeBytes: null,
   publishedAt: null,
   githubDownloads: null,
+  kind: null,
   releasesUrl: GITHUB_RELEASES_URL,
 };
 
@@ -69,6 +73,7 @@ export const getReleaseInfo = createServerFn({ method: "GET" }).handler(async ()
           sizeBytes: installer.sizeBytes,
           publishedAt: installer.publishedAt,
           githubDownloads: installer.githubDownloads,
+          kind: installer.kind,
           releasesUrl: GITHUB_RELEASES_URL,
         }
       : fallbackInfo;
