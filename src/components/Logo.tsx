@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /** DocuForge logo mark: a document sheet with a folded corner and a gold forge spark. */
-export function LogoMark({ className }: { className?: string }) {
+export function LogoMark({ className }: { className?: string | undefined }) {
   return (
     <svg
       viewBox="0 0 32 32"
@@ -25,7 +25,7 @@ export function LogoMark({ className }: { className?: string }) {
   );
 }
 
-export function Logo({ className, markClassName }: { className?: string; markClassName?: string }) {
+export function Logo({ className, markClassName }: { className?: string | undefined; markClassName?: string | undefined }) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <LogoMark className={markClassName} />
