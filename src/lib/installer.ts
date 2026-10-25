@@ -39,8 +39,9 @@ export function pickWindowsInstallerAsset(assets: GitHubAsset[]): { asset: GitHu
   const list = assets ?? [];
   const exes = list.filter((a) => a?.name?.toLowerCase().endsWith(".exe"));
   if (exes.length > 0) {
-    const setup = exes.find((a) => /setup|install/i.test(a.name));
-    return { asset: setup ?? exes[0], kind: "exe-installer" };
+    const chosen = exes.find((a) => /setup|install/i.test(a.name)) ?? exes[0];
+    if (!chosen) return null;
+    return { asset: chosen, kind: "exe-installer" };
   }
   const zip = list.find((a) => a?.name?.toLowerCase().endsWith(".zip"));
   if (zip) return { asset: zip, kind: "zip-archive" };
