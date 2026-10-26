@@ -66,7 +66,15 @@ export function Footer() {
       <div className="border-t border-background/10">
         <div className="container-page flex flex-col items-center justify-between gap-2 py-6 text-xs text-background/60 sm:flex-row">
           <p>© {new Date().getFullYear()} DocuForge. All rights reserved.</p>
-          <p>Downloads are hosted on GitHub Releases.</p>
+          <div className="flex items-center gap-4">
+            <Link
+              to="/auth"
+              className="text-background/60 underline-offset-4 transition-colors hover:text-background hover:underline focus-visible:outline-2 focus-visible:outline-ring"
+            >
+              Admin Login
+            </Link>
+            <p>Downloads are hosted on GitHub Releases.</p>
+          </div>
         </div>
       </div>
     </footer>
