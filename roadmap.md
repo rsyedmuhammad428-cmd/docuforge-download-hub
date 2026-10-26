@@ -10,5 +10,6 @@
 - [x] Admin dashboard /admin (charts, filters, CSV, states)
 - [x] Typecheck clean; 8/8 tests pass; all pages HTTP 200
 - [x] E2E: anonymous download click on home records (source=navbar, version=0.5.1, page_path=/); button href = exact v0.5.1 ZIP URL
-- [ ] Promote site owner to admin role — BLOCKED: no auth user exists yet; user must sign up on /auth with their own email (Lovable Cloud signup allow-list rejects arbitrary emails, e.g. test@example.com)
-- [ ] Verify admin dashboard signed-in E2E (charts, CSV) — depends on the previous task
+- [x] Promote site owner (rsyedmuhammad428@gmail.com) to admin role via user_roles
+- [x] E2E: signed-in admin dashboard verified with live data (stats, charts, version table, recent activity)
+
