@@ -7,9 +7,8 @@
 - [x] Release resolution from GitHub API (installer picker, fallback to Releases page)
 - [x] Marketing pages: home (hero/features/how-it-works/showcase/download/about strip), /about, /privacy, navbar+footer
 - [x] /auth sign-in/sign-up; _authenticated gate
-- [ ] Admin dashboard /admin (charts, filters, CSV, states) — in progress
-- [ ] Verify: tests, build, Playwright E2E (public + admin)
-- [ ] Promote site owner to admin role; document setup
-
-## Added by user message (2026-10-24)
-- [ ] Connect download button to verified v0.5.1 release asset DocuForge.Setup.zip (ZIP — must be labeled as ZIP, not EXE) on repo rsyedmuhammad428-cmd/DocuForge.exe
+- [x] Admin dashboard /admin (charts, filters, CSV, states)
+- [x] Typecheck clean; 8/8 tests pass; all pages HTTP 200
+- [x] E2E: anonymous download click on home records (source=navbar, version=0.5.1, page_path=/); button href = exact v0.5.1 ZIP URL
+- [ ] Promote site owner to admin role — BLOCKED: no auth user exists yet; user must sign up on /auth with their own email (Lovable Cloud signup allow-list rejects arbitrary emails, e.g. test@example.com)
+- [ ] Verify admin dashboard signed-in E2E (charts, CSV) — depends on the previous task
