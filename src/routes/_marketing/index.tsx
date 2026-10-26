@@ -241,6 +241,7 @@ function IndexPage() {
                   width={1600}
                   height={1008}
                   loading="lazy"
+                  style={{ aspectRatio: "1600 / 1008" }}
                   className="w-full rounded-2xl border border-border shadow-lift"
                 />
                 <figcaption className="mt-3 text-sm text-muted-foreground">
@@ -256,6 +257,7 @@ function IndexPage() {
                   width={1600}
                   height={1008}
                   loading="lazy"
+                  style={{ aspectRatio: "1600 / 1008" }}
                   className="w-full rounded-2xl border border-border shadow-lift"
                 />
                 <figcaption className="mt-3 text-sm text-muted-foreground">
