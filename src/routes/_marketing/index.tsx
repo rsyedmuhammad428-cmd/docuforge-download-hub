@@ -14,10 +14,9 @@ import {
 import { Reveal } from "@/components/Reveal";
 import { DownloadButton } from "@/components/DownloadButton";
 import { GITHUB_REPO_URL } from "@/lib/release-info";
-
-const heroAppPreview = "https://i.postimg.cc/0r4tGgrY/hero-app-preview.png";
-const showcaseOcr = "https://i.postimg.cc/kBtTfjtK/showcase-ocr.png";
-const showcaseOrganize = "https://i.postimg.cc/tYVB2rV6/showcase-organize.png";
+import heroAppPreview from "@/assets/hero-app-preview.png";
+import showcaseOrganize from "@/assets/showcase-organize.png";
+import showcaseOcr from "@/assets/showcase-ocr.png";
 
 export const Route = createFileRoute("/_marketing/")({
   component: IndexPage,
