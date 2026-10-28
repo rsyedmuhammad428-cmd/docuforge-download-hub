@@ -10,5 +10,9 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+
 User-agent: *
 Allow: /
+
+Sitemap: https://docuforge-download-hub.vercel.app/sitemap.xml
+
