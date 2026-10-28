@@ -20,29 +20,36 @@ import showcaseOcr from "@/assets/showcase-ocr.png";
 
 export const Route = createFileRoute("/_marketing/")({
   component: IndexPage,
-  head: () => ({
-    meta: [
-      { title: "DocuForge — PDF & document tools for Windows" },
-      {
-        name: "description",
-        content:
-          "Merge, split, organize, convert, OCR and compress PDFs — offline, private and fast. Download DocuForge for Windows, powered by RazaZaidi.AI.",
-      },
-      { property: "og:title", content: "DocuForge — PDF & document tools for Windows" },
-      {
-        property: "og:description",
-        content:
-          "Merge, split, organize, convert, OCR and compress PDFs — offline, private and fast. Download DocuForge for Windows.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "DocuForge — PDF & document tools for Windows" },
-      {
-        name: "twitter:description",
-        content: "Offline-first PDF utilities for Windows. Powered by RazaZaidi.AI.",
-      },
-    ],
-  }),
+  
+head: () => ({
+  meta: [
+    { title: "DocuForge — PDF & document tools for Windows" },
+    {
+      name: "description",
+      content:
+        "Merge, split, organize, convert, OCR and compress PDFs — offline, private and fast. Download DocuForge for Windows, powered by RazaZaidi.AI.",
+    },
+    { property: "og:title", content: "DocuForge — PDF & document tools for Windows" },
+    {
+      property: "og:description",
+      content:
+        "Merge, split, organize, convert, OCR and compress PDFs — offline, private and fast. Download DocuForge for Windows.",
+    },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: "DocuForge — PDF & document tools for Windows" },
+    {
+      name: "twitter:description",
+      content: "Offline-first PDF utilities for Windows. Powered by RazaZaidi.AI.",
+    },
+  ],
+  links: [
+    {
+      rel: "canonical",
+      href: "https://docuforge-download-hub.vercel.app/",
+    },
+  ],
+}),
 });
 
 const features = [
